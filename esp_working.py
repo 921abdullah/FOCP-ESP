@@ -1,6 +1,7 @@
 import pygame
 import pygame_menu
 from random import random, randrange
+import random
 
 pygame.init()
 pygame.font.init()
@@ -36,7 +37,7 @@ def begin():
     # Velocity of bullets
     BULLET_VEL=7
     # Max no. of our bullets on screen at a time
-    MAX_BULLETS=2
+    MAX_BULLETS=3
     # Enemy velocity
     XFIGHTER_VEL=6
 
@@ -104,7 +105,7 @@ def begin():
     xfighter_bg4_image=pygame.image.load("xfighter pixel.png")
     xfighter_bg4 = pygame.transform.rotate(pygame.transform.scale(xfighter_bg4_image, (xfighter_bg4_width,xfighter_bg4_height)),270)
 
-    def draw_window (vader_bullets, spaceship_location, spaceship_bg_location):
+    def draw_window (vader_bullets, spaceship_location, spaceship_bg_location, xfighter1_location, xfighter2_location, xfighter3_location, xfighter4_location):
         WIN.blit(bg,(0,0))
         
         WIN.blit(rebelfrigate1,(650,100))
@@ -133,8 +134,10 @@ def begin():
         WIN.blit(label_lives, (10,10))
         WIN.blit(label_level, (800,10))
         
-        WIN.blit(xfighter1,(700,400))
-        WIN.blit(xfighter1,(700,150))
+        WIN.blit(xfighter1,(xfighter1_location.x, xfighter1_location.y))
+        WIN.blit(xfighter1,(xfighter2_location.x, xfighter2_location.y))
+        WIN.blit(xfighter1,(xfighter3_location.x, xfighter3_location.y))
+        WIN.blit(xfighter1,(xfighter4_location.x, xfighter4_location.y))
         WIN.blit(spaceship,(spaceship_location.x-300,spaceship_location.y-50))
 
         for bullet in vader_bullets:
@@ -162,7 +165,7 @@ def begin():
             bullet.x += BULLET_VEL
             if  bullet.x > WIDTH:
                 vader_bullets.remove(bullet)
-        
+
        
     def spaceship_bg_icon_movement(spaceship_bg_location):
     
@@ -171,13 +174,24 @@ def begin():
         elif spaceship_bg_location.x==450:
             spaceship_bg_location.x-=100
 
-  
+    def xfighter_icon_movement(xfighter_location):
+        if xfighter_location.x>-50:
+            xfighter_location.x-=5
+        elif xfighter_location.x==-50:
+            xfighter_location.x+=900
+            #xfighter_location.x+=random.randint(0,100)
+            xfighter_location.y=random.randint(100,400)
+    
+    
+
     def main():
         tie_bg_width, tie_bg_height=20,20
         spaceship_location=pygame.Rect(425,300, spaceship_width, spaceship_height)
         spaceship_bg_location=pygame.Rect(170,330, tie_bg_width, tie_bg_height)
-        xfighter1_location=pygame.Rect(700,400, xfighter1_width, xfighter1_height)
-        
+        xfighter1_location=pygame.Rect(940,400, xfighter1_width, xfighter1_height)
+        xfighter2_location=pygame.Rect(890,300, xfighter1_width, xfighter1_height)
+        xfighter3_location=pygame.Rect(1000,150, xfighter1_width, xfighter1_height)
+        xfighter4_location=pygame.Rect(1050,80, xfighter1_width, xfighter1_height)
 
         vader_bullets=[]
         xfighter1_bullets=[]
@@ -203,8 +217,13 @@ def begin():
             keys_pressed = pygame.key.get_pressed()
             spaceship_icon_movement(keys_pressed, spaceship_location)
             spaceship_bg_icon_movement(spaceship_bg_location)
+            xfighter_icon_movement(xfighter1_location)
+            xfighter_icon_movement(xfighter2_location)
+            xfighter_icon_movement(xfighter3_location)
+            xfighter_icon_movement(xfighter4_location)
+            # xfighter2_icon_movement(xfighter2_location)
             handle_bullets(vader_bullets)
-            draw_window(vader_bullets, spaceship_location, spaceship_bg_location)
+            draw_window(vader_bullets, spaceship_location, spaceship_bg_location, xfighter1_location, xfighter2_location, xfighter3_location, xfighter4_location)
             
         pygame.quit()
 
@@ -221,4 +240,6 @@ def mainmenu():
 mainmenu()
 
 menu.mainloop(WIN)
+    
+
     
