@@ -244,7 +244,8 @@ def begin():
         elif xfighter_location.x==-50:
             xfighter_location.x+=900
             xfighter_location.y=random.randint(100,400)
-            
+            if vader_bullets!=[] and bullet.x > WIDTH:
+                vader_bullets.remove(bullet)
     #Implement         
     def gameover(WIN):
         pygame.mixer.music.stop()
@@ -366,7 +367,7 @@ def begin():
                 if(level == VICTORY_LEVEL and xfighter_count >= LEVEL_UP_KILLS):
                     gameover(WIN)
                     pygame.display.update()
-                    pygame.time.delay(8000)
+                    pygame.time.delay(5000)
                     lives = 5
                     level = 1
                     
