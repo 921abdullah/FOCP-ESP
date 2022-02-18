@@ -180,13 +180,13 @@ def begin():
             
             # Movement Keys
             keys_pressed = pygame.key.get_pressed()
-            if keys_pressed[pygame.K_a] and spaceship_location.x-50 - VEL > 0 : #Move Left 
+            if keys_pressed[pygame.K_a] and spaceship_location.x-20 - VEL > 0 : #Move Left 
                 spaceship_location.x -= VEL 
             if keys_pressed[pygame.K_d] and spaceship_location.x + VEL + spaceship_location.width < WIDTH-300  : #Move Right
                 spaceship_location.x += VEL
-            if keys_pressed[pygame.K_w] and spaceship_location.y-50 - VEL > 0 : #Move Up
+            if keys_pressed[pygame.K_w] and spaceship_location.y-20 - VEL > 0 : #Move Up
                 spaceship_location.y -= VEL
-            if keys_pressed[pygame.K_s] and spaceship_location.y + VEL + spaceship_location.height + 50 < 500 : #Move Down
+            if keys_pressed[pygame.K_s] and spaceship_location.y + VEL + spaceship_location.height + 20 < 500 : #Move Down
                 spaceship_location.y += VEL   
                 
 
