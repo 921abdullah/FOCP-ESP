@@ -1,17 +1,19 @@
 import pygame
 import pygame_menu
- 
 from random import random
 import random
 
+#initialising 
 pygame.init()
 pygame.font.init()
 pygame.mixer.init()
 
+#game window
 WIDTH, HEIGHT = 900, 500
 WIN = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Star Wars 22")
 
+#background dimensions
 bg_width,bg_height=900,500
 bg_image=pygame.image.load("planet.png")
 bg=pygame.transform.scale(bg_image,(bg_width, bg_height))
@@ -21,12 +23,14 @@ XFIGHTER_HIT=pygame.USEREVENT+2
 
 def begin():
     
+    #sound effects
     bulletfire_sound = pygame.mixer.Sound("Bullet.mp3")
     xfighter_sound = pygame.mixer.Sound("XWing-Proton.mp3")
-    ship_explosion = pygame.mixer.Sound("boom5.mp3")
+    ship_explosion = pygame.mixer.Sound("XWing explode.mp3")
     tie_hit = pygame.mixer.Sound("darthVader.mp3")
     bg_sound= pygame.mixer.Sound("music.mp3")
     bg_music = pygame.mixer.music.load("music.mp3")
+    
     pygame.mixer.music.play(-1)
     
     # Colours
@@ -36,10 +40,12 @@ def begin():
     GREEN=(0,255,0)
     BLUE=(0,0,255)
 
-    xfighter1_hit = pygame.USEREVENT + 1
-    spaceship_hit = pygame.USEREVENT + 2
+    #xfighter1_hit = pygame.USEREVENT + 1
+    #spaceship_hit = pygame.USEREVENT + 2
 
+    #number of levels
     VICTORY_LEVEL = 4
+    #number of kills for level up
     LEVEL_UP_KILLS = 5
 
     # Velocity of ship
@@ -50,6 +56,7 @@ def begin():
     
     # Max no. of our bullets on screen at a time
     MAX_BULLETS_VADER=3
+   
     MAX_BULLETS_XFIGHTER=4
 
     # Enemy velocity
@@ -58,6 +65,7 @@ def begin():
     # Max frame rate for game to run
     FPS=60
 
+    #loading images 
     bg_width,bg_height=900,500
     bg_image=pygame.image.load("planet.png")
     bg=pygame.transform.scale(bg_image,(bg_width, bg_height))
@@ -99,21 +107,21 @@ def begin():
     xfighter_bg3_width, xfighter_bg3_height=20,20
     xfighter_bg4_width, xfighter_bg4_height=20,20
     
-    xfighter_image=pygame.image.load("tie fighter pixel.png")
+    xfighter_image=pygame.image.load("xfighter pixel.png")
     xfighter=pygame.transform.rotate(pygame.transform.scale(xfighter_image, (xfighter1_width, xfighter1_height)),270)
-    xfighter_image=pygame.image.load("tie fighter pixel.png")
+    xfighter_image=pygame.image.load("xfighter pixel.png")
     xfighter=pygame.transform.rotate(pygame.transform.scale(xfighter_image, (xfighter1_width, xfighter1_height)),270)
 
-    xfighter_bg1_image=pygame.image.load("tie fighter pixel.png")
+    xfighter_bg1_image=pygame.image.load("xfighter pixel.png")
     xfighter_bg1 = pygame.transform.rotate(pygame.transform.scale(xfighter_bg1_image, (xfighter_bg1_width,xfighter_bg1_height)),270)
     
-    xfighter_bg2_image=pygame.image.load("tie fighter pixel.png")
+    xfighter_bg2_image=pygame.image.load("xfighter pixel.png")
     xfighter_bg2 = pygame.transform.rotate(pygame.transform.scale(xfighter_bg2_image, (xfighter_bg2_width,xfighter_bg2_height)),270)
    
-    xfighter_bg3_image=pygame.image.load("tie fighter pixel.png")
+    xfighter_bg3_image=pygame.image.load("xfighter pixel.png")
     xfighter_bg3 = pygame.transform.rotate(pygame.transform.scale(xfighter_bg3_image, (xfighter_bg3_width,xfighter_bg3_height)),270)
     
-    xfighter_bg4_image=pygame.image.load("tie fighter pixel.png")
+    xfighter_bg4_image=pygame.image.load("xfighter pixel.png")
     xfighter_bg4 = pygame.transform.rotate(pygame.transform.scale(xfighter_bg4_image, (xfighter_bg4_width,xfighter_bg4_height)),270)
 
     def draw_text (lives, level):
@@ -127,6 +135,7 @@ def begin():
         
     def draw_window (vader_bullets, xfighter1_bullets, xfighter2_bullets, xfighter3_bullets, xfighter4_bullets, spaceship_location, spaceship_bg_location, xfighter1_location, xfighter2_location, xfighter3_location, xfighter4_location):
 
+        #placing iimages on screen
         WIN.blit(rebelfrigate1,(650,100))
         WIN.blit(rebelfrigate2,(550,60))
         
@@ -151,6 +160,7 @@ def begin():
         WIN.blit(xfighter,(xfighter4_location.x, xfighter4_location.y))
         WIN.blit(spaceship,(spaceship_location.x,spaceship_location.y))
 
+        #draws bullets on screen
         for bullet in vader_bullets:
             pygame.draw.rect(WIN, RED, bullet)
         
@@ -180,9 +190,11 @@ def begin():
                 spaceship_location.y += VEL   
                 
 
+    #bullets for our ship
     def vader_handle_bullets(vader_bullets, xfighter1_location, xfighter2_location, xfighter3_location, xfighter4_location, xfighter_count):
         for bullet in vader_bullets:
             bullet.x += BULLET_VEL
+            #detects collision
             if bullet.colliderect(xfighter1_location):
                 xfighter1_location = pygame.Rect(950, random.randint(50, 450), xfighter1_width, xfighter1_height)
                 vader_bullets.remove(bullet)
@@ -205,13 +217,14 @@ def begin():
                 xfighter4_location=pygame.Rect(950, random.randint(50, 450), xfighter1_width, xfighter1_height)
                 vader_bullets.remove(bullet)
                 xfighter_count+=1
-                #ship_explosion.play()
+                ship_explosion.play()
                
             if vader_bullets!=[] and bullet.x > WIDTH:
                 vader_bullets.remove(bullet)
 
         return xfighter1_location, xfighter2_location, xfighter3_location, xfighter4_location, xfighter_count
 
+    #bullets for enemy ships
     def xfighter_handle_bullets(xfighter_bullets, spaceship_location, lives):
         for bullet in reversed(xfighter_bullets):
             #bullet = xfighter_bullets[-1]
@@ -224,6 +237,7 @@ def begin():
                 xfighter_bullets.remove(bullet)
             return lives
        
+    #background movements
     def spaceship_bg_icon_movement(spaceship_bg_location, spaceship_vel):
         if spaceship_bg_location.x==450:
             spaceship_bg_location.x+=spaceship_vel
@@ -236,6 +250,8 @@ def begin():
             spaceship_bg_location.y-=spaceship_vel
         return spaceship_vel
 
+    #movement for enemy
+    #increase in speed for movement of wnwmy
     def xfighter_icon_movement(xfighter_location, level):
         xfight_vel = XFIGHTER_VEL
         if xfighter_location.x>-50:
@@ -244,9 +260,9 @@ def begin():
         elif xfighter_location.x==-50:
             xfighter_location.x+=900
             xfighter_location.y=random.randint(100,400)
-            if vader_bullets!=[] and bullet.x > WIDTH:
-                vader_bullets.remove(bullet)
-    #Implement         
+            
+    #Implement     
+    # When game end    
     def gameover(WIN):
         pygame.mixer.music.stop()
         
@@ -258,6 +274,7 @@ def begin():
         WIN.blit(text1,(300,140))
         WIN.blit(text2,(275,200))
         
+    '''
     def gamewin(WIN):
         gameoverfont1=pygame.font.SysFont('comicsans',50)
         gameoverfont2=pygame.font.SysFont('comicsans',30)
@@ -266,7 +283,7 @@ def begin():
        
         WIN.blit(text1,(300,140))
         WIN.blit(text2,(275,200))
-        
+    '''   
 
     def main():
         
@@ -319,7 +336,7 @@ def begin():
             if len(xfighter1_bullets) <= MAX_BULLETS_XFIGHTER:
                 bullet1 = pygame.Rect(xfighter1_location.x-10, xfighter1_location.y-4 + xfighter1_location.height//2 - 2, 8, 5)
                 xfighter1_bullets.append(bullet1)
-                #xfighter_sound.play()
+                xfighter_sound.play()
             if len(xfighter2_bullets) <= MAX_BULLETS_XFIGHTER:
                 bullet2 = pygame.Rect(xfighter2_location.x-10, xfighter2_location.y-4 + xfighter2_location.height//2 - 2, 8, 5)
                 xfighter2_bullets.append(bullet2)
@@ -331,9 +348,10 @@ def begin():
             if len(xfighter4_bullets) <= MAX_BULLETS_XFIGHTER:
                 bullet4 = pygame.Rect(xfighter4_location.x-10, xfighter4_location.y-4 + xfighter4_location.height//2 - 2, 8, 5)
                 xfighter4_bullets.append(bullet4)
-                #xfighter_sound.play()
+                xfighter_sound.play()
                     
             keys_pressed = pygame.key.get_pressed()
+            #calling
             spaceship_icon_movement(keys_pressed, spaceship_location)
             spaceship_velocity = spaceship_bg_icon_movement(spaceship_bg_location, spaceship_velocity)
             
@@ -356,7 +374,8 @@ def begin():
 
             if(lives == 0):
                 gameover(WIN)
-                pygame.time.delay(8000)
+                pygame.display.update()
+                pygame.time.delay(4000)
                 #run = False
                 #menu.mainloop(WIN)
             
@@ -367,7 +386,7 @@ def begin():
                 if(level == VICTORY_LEVEL and xfighter_count >= LEVEL_UP_KILLS):
                     gameover(WIN)
                     pygame.display.update()
-                    pygame.time.delay(5000)
+                    pygame.time.delay(8000)
                     lives = 5
                     level = 1
                     
@@ -386,6 +405,7 @@ def begin():
     if __name__=="__main__":
         main()
 
+#controls screen
 def controls():
     run = True
     while run:
@@ -417,6 +437,7 @@ def controls():
 
         pygame.display.update()
 
+#objectives screen
 def objective():
     run = True
     while run:
@@ -434,7 +455,7 @@ def objective():
         main_font=pygame.font.SysFont("comicsans", 30)
         label_instructions1 = main_font.render("There are a maximum of 3 levels.", 15, (255, 255, 255))
         label_instructions2 = main_font.render("In each level you have to take out ", 15, (255, 255, 255))
-        label_instructions3 = main_font.render("atleast 3 xwings to progress ", 15, (255, 255, 255))
+        label_instructions3 = main_font.render("atleast 5 xwings to progress ", 15, (255, 255, 255))
         label_instructions4 = main_font.render("GOOD LUCK!", 15, (255, 255, 255))
         
         WIN.blit(label_instructions1, (100,60))
@@ -444,11 +465,11 @@ def objective():
         
         pygame.display.update()
 
+#for making menu
 def mainmenu():
     global menu
 
     menu=pygame_menu.Menu("WELCOME TROOPER", 900, 500, theme=pygame_menu.themes.THEME_DARK)
-    #menu.add.text_input("Identity Number: ")
     menu.add.button("PLAY", begin)
     menu.add.button("CONTROLS", controls)
     menu.add.button("OBJECTIVE", objective)
