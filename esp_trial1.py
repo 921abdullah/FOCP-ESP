@@ -384,7 +384,13 @@ def begin():
                 level += 1
             
                 if(level == VICTORY_LEVEL and xfighter_count >= LEVEL_UP_KILLS):
-                    gameover(WIN)
+                    gameoverfont1=pygame.font.SysFont('comicsans',50)
+                    gameoverfont2=pygame.font.SysFont('comicsans',30)
+                    text1=gameoverfont1.render('You win!', 1 ,RED)
+                    text2=gameoverfont2.render('Play again? Press y or n', 1 ,RED)
+       
+                    WIN.blit(text1,(340,140))
+                    WIN.blit(text2,(275,200))
                     pygame.display.update()
                     pygame.time.delay(8000)
                     lives = 5
