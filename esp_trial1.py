@@ -198,13 +198,13 @@ def begin():
                 xfighter1_location = pygame.Rect(950, random.randint(50, 450), xfighter1_width, xfighter1_height)
                 vader_bullets.remove(bullet)
                 xfighter_count+=1
-                #ship_explosion.play()
+                ship_explosion.play()
                 
             if bullet.colliderect(xfighter2_location):
                 xfighter2_location=pygame.Rect(950, random.randint(50, 450), xfighter1_width, xfighter1_height)
                 vader_bullets.remove(bullet)
                 xfighter_count+=1
-                #ship_explosion.play()
+                ship_explosion.play()
                 
             if bullet.colliderect(xfighter3_location):
                 xfighter3_location=pygame.Rect(950, random.randint(50, 450), xfighter1_width, xfighter1_height)
