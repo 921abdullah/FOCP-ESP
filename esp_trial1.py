@@ -45,7 +45,7 @@ def begin():
     spaceship_hit = pygame.USEREVENT + 2
 
     VICTORY_LEVEL = 4
-    LEVEL_UP_KILLS = 3
+    LEVEL_UP_KILLS = 5
 
     # Velocity of ship
     VEL=4
@@ -454,7 +454,7 @@ def objective():
         main_font=pygame.font.SysFont("comicsans", 30)
         label_instructions1 = main_font.render("There are a maximum of 3 levels.", 15, (255, 255, 255))
         label_instructions2 = main_font.render("In each level you have to take out ", 15, (255, 255, 255))
-        label_instructions3 = main_font.render("atleast 3 xwings to progress ", 15, (255, 255, 255))
+        label_instructions3 = main_font.render("atleast 5 xwings to progress ", 15, (255, 255, 255))
         label_instructions4 = main_font.render("GOOD LUCK!", 15, (255, 255, 255))
         
         WIN.blit(label_instructions1, (100,60))
@@ -475,5 +475,6 @@ def mainmenu():
 mainmenu()
 
 menu.mainloop(WIN)
+    
     
     
