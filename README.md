@@ -5,5 +5,5 @@
     <img src="pyth.png" alt="Logo" width="190" height="130">
   </a>
 
-  <h1 align="center">Basic Concepts of Python </h1>
+  <h1 align="center">Game Development With Python </h1>
 </div>
