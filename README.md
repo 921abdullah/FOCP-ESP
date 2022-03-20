@@ -16,12 +16,12 @@
 
 ### Connect with me:
 
-[![website](https://github.com/921abdullah/Star-wars-2D-space-shooter/blob/main/logo/facebook.png](https://www.facebook.com/profile.php?id=100001032383100)
-&nbsp;&nbsp;
+[![website](https://github.com/921abdullah/Star-wars-2D-space-shooter/blob/main/logo/facebook.png)](https://www.facebook.com/profile.php?id=100001032383100)
+
 [![website](https://github.com/921abdullah/Star-wars-2D-space-shooter/blob/main/logo/insta.png)](https://www.linkedin.com/in/abdullah-khan-a06bb1229/)
-&nbsp;&nbsp;
+
 [![website](https://github.com/921abdullah/Star-wars-2D-space-shooter/blob/main/logo/linkedin.png)](https://www.instagram.com/abdullah.khan42/)
-&nbsp;&nbsp;
+
 ### Languages and Tools:
 
 [<img align="left" alt="Visual Studio Code" width="26px" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg" style="padding-right:10px;" />][webdevplaylist]
